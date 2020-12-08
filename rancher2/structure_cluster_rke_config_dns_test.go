@@ -77,6 +77,7 @@ func init() {
 		Provider:               "kube-dns",
 		ReverseCIDRs:           []string{"rev1", "rev2"},
 		UpstreamNameservers:    []string{"up1", "up2"},
+		UpdateStrategy:         testDeploymentStrategyConf,
 	}
 	testClusterRKEConfigDNSInterface = []interface{}{
 		map[string]interface{}{
@@ -89,6 +90,7 @@ func init() {
 			"provider":                 "kube-dns",
 			"reverse_cidrs":            []interface{}{"rev1", "rev2"},
 			"upstream_nameservers":     []interface{}{"up1", "up2"},
+			"update_strategy":          testDeploymentStrategyInterface,
 		},
 	}
 }

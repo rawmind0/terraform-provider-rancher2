@@ -80,6 +80,10 @@ func flattenClusterRKEConfigDNS(in *managementClient.DNSConfig) ([]interface{}, 
 		obj["upstream_nameservers"] = toArrayInterface(in.UpstreamNameservers)
 	}
 
+	if in.UpdateStrategy != nil {
+		obj["update_strategy"] = flattenDeploymentStrategy(in.UpdateStrategy)
+	}
+
 	return []interface{}{obj}, nil
 }
 
@@ -162,6 +166,10 @@ func expandClusterRKEConfigDNS(p []interface{}) (*managementClient.DNSConfig, er
 
 	if v, ok := in["upstream_nameservers"].([]interface{}); ok && len(v) > 0 {
 		obj.UpstreamNameservers = toArrayString(v)
+	}
+
+	if v, ok := in["update_strategy"].([]interface{}); ok && v != nil {
+		obj.UpdateStrategy = expandDeploymentStrategy(v)
 	}
 
 	return obj, nil

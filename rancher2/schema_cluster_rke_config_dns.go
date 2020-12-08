@@ -105,6 +105,15 @@ func clusterRKEConfigDNSFields() map[string]*schema.Schema {
 				Type: schema.TypeString,
 			},
 		},
+		"update_strategy": {
+			Type:        schema.TypeList,
+			Optional:    true,
+			MaxItems:    1,
+			Description: "Update deployment strategy",
+			Elem: &schema.Resource{
+				Schema: deploymentStrategyFields(),
+			},
+		},
 	}
 
 	return s
