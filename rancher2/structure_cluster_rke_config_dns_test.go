@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	managementClient "github.com/rancher/rancher/pkg/client/generated/management/v3"
+	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 var (
@@ -65,6 +66,26 @@ func init() {
 			"min":                          1,
 			"nodes_per_replica":            float64(8),
 			"prevent_single_point_failure": false,
+		},
+	}
+	testRollingUpdateDeploymentConf = &managementClient.RollingUpdateDeployment{
+		MaxSurge:       intstr.FromInt(10),
+		MaxUnavailable: intstr.FromInt(10),
+	}
+	testRollingUpdateDeploymentInterface = []interface{}{
+		map[string]interface{}{
+			"max_surge":       10,
+			"max_unavailable": 10,
+		},
+	}
+	testDeploymentStrategyConf = &managementClient.DeploymentStrategy{
+		RollingUpdate: testRollingUpdateDeploymentConf,
+		Strategy:      "strategy",
+	}
+	testDeploymentStrategyInterface = []interface{}{
+		map[string]interface{}{
+			"rolling_update": testRollingUpdateDeploymentInterface,
+			"strategy":       "strategy",
 		},
 	}
 	testClusterRKEConfigDNSConf = &managementClient.DNSConfig{
